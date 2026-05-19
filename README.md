@@ -24,7 +24,7 @@ MatchaMind is an AI-powered expense tracking application that turns every receip
 
 ### Prerequisites
 - Python 3.8+
-- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
+- Gemini API key ([Get one here](https://aistudio.google.com/app/apikey))
 
 ### Installation
 
