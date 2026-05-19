@@ -1,0 +1,29 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10,
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 100,
+    "startCommand": "gunicorn backend.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+  },
+  "environments": {
+    "production": {
+      "env": {
+        "DEMO_MODE": "false",
+        "DEBUG": "false"
+      }
+    },
+    "development": {
+      "env": {
+        "DEMO_MODE": "true",
+        "DEBUG": "true"
+      }
+    }
+  }
+}

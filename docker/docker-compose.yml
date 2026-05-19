@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: matchamind-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - DEMO_MODE=${DEMO_MODE:-true}
+    volumes:
+      - ../backend:/app/backend
+      - ../.env:/app/.env
+    restart: unless-stopped
+    networks:
+      - matchamind-network
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    container_name: matchamind-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+    volumes:
+      - ../frontend:/app/frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - matchamind-network
+
+networks:
+  matchamind-network:
+    driver: bridge

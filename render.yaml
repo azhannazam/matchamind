@@ -1,0 +1,56 @@
+# Backend Service
+- type: web
+  name: matchamind-backend
+  runtime: python
+  repo: https://github.com/yourusername/matchamind
+  plan: free
+  region: singapore
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn backend.main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+  envVars:
+    - key: OPENAI_API_KEY
+      sync: false
+      required: true
+    - key: SUPABASE_URL
+      sync: false
+    - key: SUPABASE_KEY
+      sync: false
+    - key: DEMO_MODE
+      value: false
+    - key: DEBUG
+      value: false
+    - key: PYTHON_VERSION
+      value: 3.11.0
+  healthCheckPath: /health
+  autoDeploy: true
+
+# Frontend Service (Streamlit)
+- type: web
+  name: matchamind-frontend
+  runtime: python
+  repo: https://github.com/yourusername/matchamind
+  plan: free
+  region: singapore
+  buildCommand: pip install -r requirements.txt
+  startCommand: streamlit run frontend/app/main.py --server.port $PORT --server.address 0.0.0.0
+  envVars:
+    - key: API_URL
+      value: https://matchamind-backend.onrender.com
+    - key: DEMO_MODE
+      value: true
+  healthCheckPath: /_stcore/health
+
+# Optional: Background Worker for Celery
+- type: worker
+  name: matchamind-worker
+  runtime: python
+  repo: https://github.com/yourusername/matchamind
+  plan: free
+  region: singapore
+  buildCommand: pip install -r requirements.txt
+  startCommand: celery -A backend.services.alert_scheduler worker --loglevel=info
+  envVars:
+    - key: OPENAI_API_KEY
+      sync: false
+    - key: REDIS_URL
+      sync: false
