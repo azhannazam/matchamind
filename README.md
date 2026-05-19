@@ -5,7 +5,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28-red.svg)](https://streamlit.io)
 [![Gemini](https://img.shields.io/badge/Google-Gemini-blue.svg)](https://ai.google.dev/)
 
-MatchaMind is an AI-powered expense tracking application that turns every receipt into actionable insights. It uses GPT-4 to automatically parse transaction text and provides intelligent coaching to help you save money.
+MatchaMind is an AI-powered expense tracking application that turns every receipt into actionable insights. It leverages the Google Gemini API to automatically parse transaction text and provides intelligent coaching to help you save money.
 
 ---
 
