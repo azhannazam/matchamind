@@ -154,5 +154,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📧 Contact
 
-- Your Name - @yourtwitter - email@example.com
+- Muhammad Azhan Bin Muhammad Nazam - azhannazam@gmail.com
 - Project Link: https://github.com/azhannazam/matchamind
